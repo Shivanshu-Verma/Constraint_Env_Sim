@@ -20,10 +20,10 @@ sudo apt install libevent-dev libjson-c-dev verilator
 ```
 
 ```
-litex_sim --csr-json csr.json --cpu-type=vexriscv --cpu-variant=full --uart-baudrate=1000000 --integrated-main-ram-size=0x06400000
+litex_sim --csr-json csr.json --cpu-type=vexriscv --cpu-variant=full --integrated-main-ram-size=0x06400000
 ```
 
 ```
 litex_bare_metal_demo --build-path=build/sim
-litex_sim --csr-json csr.json --cpu-type=vexriscv --cpu-variant=full --uart-baudrate=1000000 --integrated-main-ram-size=0x06400000 --ram-init=boot.bin
+litex_sim --csr-json csr.json --cpu-type=vexriscv --cpu-variant=full --integrated-main-ram-size=0x06400000 --ram-init=boot.bin
 ```
