@@ -8,10 +8,10 @@ Follow the steps to setup development environment of embdedded system (RISC-V + 
 ## Prerequisites
 
 Ensure your system has the following installed:
-a. Python 3.8+
-b. Git
-c. Build tools: build-essential, cmake, etc.
-d. Linux environment (Ubuntu recommended)
+- Python 3.8+
+- Git
+- Build tools: build-essential, cmake, etc.
+- Linux environment (Ubuntu recommended)
 
 ## 1. Clone the Repository
 Clone the project repository containing the LiteX configuration and simulation modules:
@@ -67,9 +67,9 @@ litex_sim --csr-json csr.json --cpu-type=vexriscv --cpu-variant=full --integrate
 
 All embedded C source files reside in the boot/ directory.  
 To update the firmware:  
-a. Modify or add C files under boot/.  
-b. Rebuild and test via LiteX simulation.  
-c. Re-run the simulation with your updated firmware:  
+1. Modify or add C files under boot/.  
+2. Rebuild and test via LiteX simulation.  
+3. Re-run the simulation with your updated firmware:  
 
 ```
 litex_bare_metal_demo --build-path=build/sim
