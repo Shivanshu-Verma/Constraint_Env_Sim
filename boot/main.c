@@ -55,7 +55,7 @@ int main(void)
 	irq_setie(1);
 #endif
 	uart_init();
-    printf("\nTEST Start\n");
+    printf("\nBasic ML-KEM KEY generation TEST\n");
     
     int ret;
     wc_InitRng(&global_rng); 
