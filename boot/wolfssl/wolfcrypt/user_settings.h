@@ -1,7 +1,7 @@
 #ifndef USER_SETTINGS_H
 #define USER_SETTINGS_H
 
-#define WOLFCRYPT_ONLY // only use the crypto backend
+// #define WOLFCRYPT_ONLY // only use the crypto backend
 
 #define WOLFSSL_SP_MATH // maths backend for crypto
 
@@ -17,11 +17,14 @@
 #define WOLFSSL_SMALL_CERT_VERIFY   // Lower memory certificate verification
 #define NO_FILESYSTEM               // Don't use file system
 #define NO_WOLFSSL_DIR              // Don't use directory access
-#define NO_WOLFSSL_SERVER           // Client only, no server support
+// #define NO_WOLFSSL_SERVER           // Client only, no server support
 #define SINGLE_THREADED             // No threading support needed
 #define NO_ERROR_STRINGS            // Save space by removing error strings
 #define WOLFSSL_SMALL_SESSION_CACHE // Smaller session cache
-#define NO_OLD_TLS                  // Only support TLS 1.2+
+// #define NO_OLD_TLS                  // Only support TLS 1.2+
+#define WOLFSSL_TLS13
+#define HAVE_TLS_EXTENSIONS
+#define WC_RSA_PSS
 #define NO_DH                       // Disable DH to save space
 
 #define HAVE_X25519

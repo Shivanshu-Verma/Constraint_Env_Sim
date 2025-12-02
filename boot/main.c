@@ -10,6 +10,7 @@
 #include <wolfssl/options.h>
 #include <wolfssl/wolfcrypt/wc_mlkem.h>
 #include <wolfssl/wolfcrypt/random.h>
+#include <wolfssl/ssl.h>
 
 // static FATFS fs;//File system object to use Fatfs
 
@@ -46,6 +47,18 @@ int gettimeofday(struct timeval* tv, void* tz) {
     return 0;
 }
 //-----------------------------Wolf required stubs--------------------------------------//
+
+static int my_IO_Send(WOLFSSL* ssl, char* buf, int sz, void* ctx)
+{
+    printf("wolfSSL SEND called, size=%d\n", sz);
+    return sz;  /* Claim all bytes were sent */
+}
+
+static int my_IO_Recv(WOLFSSL* ssl, char* buf, int sz, void* ctx)
+{
+    printf("wolfSSL RECV called, size=%d\n", sz);
+    return WOLFSSL_CBIO_ERR_WANT_READ; /* No data pending */
+}
 
 WC_RNG global_rng;
 int main(void)
@@ -112,6 +125,54 @@ int main(void)
     printf("\n\n");
 
     wc_MlKemKey_Free(Bench_key);
+
+    printf("=== wolfSSL TLS Test Start ===\n");
+
+    /* Initialize wolfSSL */
+    wolfSSL_Init();
+
+    /* Create TLS 1.3 client context */
+    WOLFSSL_CTX* ctx = wolfSSL_CTX_new(wolfTLSv1_3_client_method());
+    if (!ctx) {
+        printf("wolfSSL_CTX_new FAILED\n");
+        return -1;
+    }
+
+    /* Install dummy send/recv callbacks */
+    wolfSSL_SetIORecv(ctx, my_IO_Recv);
+    wolfSSL_SetIOSend(ctx, my_IO_Send);
+
+    /* Create SSL session */
+    WOLFSSL* ssl = wolfSSL_new(ctx);
+    if (!ssl) {
+        printf("wolfSSL_new FAILED\n");
+        wolfSSL_CTX_free(ctx);
+        return -1;
+    }
+
+    printf("Starting TLS 1.3 handshake...\n");
+
+    ret = wolfSSL_connect(ssl);
+
+    if (ret == WOLFSSL_SUCCESS) {
+        printf("Handshake SUCCESS (unexpected on bare metal)\n");
+    } else {
+        int err = wolfSSL_get_error(ssl, ret);
+        printf("wolfSSL_connect returned error %d\n", err);
+
+        if (err == WOLFSSL_ERROR_WANT_READ || err == WOLFSSL_ERROR_WANT_WRITE) {
+            printf("wolfSSL functional: WANT_READ/WRITE expected.\n");
+        } else {
+            printf("wolfSSL unexpected error: %d\n", err);
+        }
+    }
+
+    /* Cleanup */
+    wolfSSL_free(ssl);
+    wolfSSL_CTX_free(ctx);
+    wolfSSL_Cleanup();
+
+    printf("=== wolfSSL TLS Test Complete ===\n");
 
     return 0;
 }

@@ -6,6 +6,7 @@ include $(SOC_DIRECTORY)/software/common.mak
 #Wolf includes
 
 SRCS += $(wildcard wolfcrypt/src/*.c)
+SRCS += $(wildcard src/*.c)
 OBJECTS  = crt0.o main.o
 OBJECTS += $(SRCS:.c=.o)
 INC  = -I./wolfssl -I./wolfssl/wolfcrypt -I.
