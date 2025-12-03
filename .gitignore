@@ -35,5 +35,8 @@ boot/main.o
 boot/src
 boot/wolfcrypt
 build
+host/server.log
 boot.bin
 boot.fbi
+host/server
+boot.bin

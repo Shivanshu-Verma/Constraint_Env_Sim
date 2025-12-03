@@ -4,13 +4,16 @@ This folder contains a minimal WolfSSL-based DTLS 1.3 PSK server that pairs with
 
 ## Build
 
-Use any POSIX environment with WolfSSL installed:
+The LiteX repository already vendors the WolfSSL sources used by the bare-metal
+firmware. The provided `Makefile` reuses those sources and does **not** require a
+system-wide WolfSSL installation. From this directory run:
 
 ```
-gcc server.c -o server -lwolfssl
+make
 ```
 
-Add additional include/library paths if WolfSSL is installed in a non-default prefix (for example, `-I/usr/local/include -L/usr/local/lib`).
+The build drops objects in `host/build/` and produces the `server` binary in the
+same folder. Use `make clean` to remove the artifacts.
 
 ## Run
 

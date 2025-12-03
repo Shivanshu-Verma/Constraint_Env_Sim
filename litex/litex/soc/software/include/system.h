@@ -1,7 +1,13 @@
 #pragma once
 
 #include <stddef.h>
-#include_next <system.h>
+#if defined(__has_include_next)
+#  if __has_include_next(<system.h>)
+#    include_next <system.h>
+#  endif
+#else
+#  include_next <system.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
