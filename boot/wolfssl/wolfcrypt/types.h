@@ -48,6 +48,21 @@ library files.
     extern "C" {
 #endif
 
+#if defined(__has_include)
+    #if __has_include(<sys/types.h>)
+        #include <sys/types.h>
+    #endif
+#else
+    #include <sys/types.h>
+#endif
+
+#if !defined(_SSIZE_T_DECLARED) && !defined(_SSIZE_T_DEFINED) && \
+    !defined(__DEFINED_ssize_t) && !defined(__ssize_t_defined) && \
+    !defined(_SSIZE_T_TYPE)
+    typedef long ssize_t;
+    #define _SSIZE_T_DECLARED
+#endif
+
 
 /*
     * This struct is used multiple time by other structs and

@@ -32,4 +32,8 @@ boot/crt0.d
 boot/crt0.o
 boot/main.d
 boot/main.o
+boot/src
+boot/wolfcrypt
 build
+boot.bin
+boot.fbi

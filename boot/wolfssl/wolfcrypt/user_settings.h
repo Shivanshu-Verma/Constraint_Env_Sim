@@ -23,7 +23,12 @@
 #define WOLFSSL_SMALL_SESSION_CACHE // Smaller session cache
 // #define NO_OLD_TLS                  // Only support TLS 1.2+
 #define WOLFSSL_TLS13
+#define WOLFSSL_DTLS
+#define WOLFSSL_DTLS13
+#define WOLFSSL_DTLS_CH_FRAG
+#define WOLFSSL_SEND_HRR_COOKIE
 #define HAVE_TLS_EXTENSIONS
+#define HAVE_SUPPORTED_CURVES
 #define WC_RSA_PSS
 #define NO_DH                       // Disable DH to save space
 
